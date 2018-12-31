@@ -1,2 +1,2 @@
-# Movie-recommendatio
+# Movie-recommendation
 A Movie Recommendation System 
