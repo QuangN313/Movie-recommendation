@@ -1,6 +1,7 @@
 import csv
 from os import remove
 from os.path import join, dirname, exists
+import pandas as pd
 
 genre = ['unknown', 'Action', 'Adventure', 'Animation', 'Children', 'Comedy', 'Crime',
         'Documentary', 'Drama', 'Fantasy', 'Film_Noir', 'Horror', 'Musical', 'Mystery',
@@ -18,15 +19,7 @@ def convert_txt_to_csv(txt_path, csv_path, headers, delimiter):
     f_csv.close()
 
 
-if __name__ == '__main__':
-    BASE_DIR = dirname(dirname(__file__))
-    data_file = 'data/raw_data/u.data'
-    item_file = 'data/raw_data/u.item'
-    user_file = 'data/raw_data/u.user'
-    csv_data_file = 'util/tmp/u.data.csv'
-    csv_item_file = 'util/tmp/u.item.csv'
-    csv_user_file = 'util/tmp/u.user.csv'
-
+def get_csv_file():
     if exists((join(BASE_DIR, csv_data_file))):
         remove((join(BASE_DIR, csv_data_file)))
     if exists(join(BASE_DIR, csv_item_file)):
@@ -34,8 +27,38 @@ if __name__ == '__main__':
     if exists(join(BASE_DIR, csv_user_file)):
         remove((join(BASE_DIR, csv_user_file)))
 
-    convert_txt_to_csv(data_file, csv_data_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
+    convert_txt_to_csv(training_file, csv_training_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
+    convert_txt_to_csv(test_file, csv_test_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
     convert_txt_to_csv(item_file, csv_item_file,
                        headers=['movie_id', 'movie_title', 'release_time', 'release_video_date', 'IMDB_url'] + genre,
                        delimiter='|')
     convert_txt_to_csv(user_file, csv_user_file, ['user_id', 'age', 'gender', 'occupation', 'zip_code'], '|')
+
+
+def generate_training_test_data(path):
+    df = pd.read_csv(join(BASE_DIR, path))
+    label = []
+    for rating in df['rating']:
+        if rating >=3:
+            label.append(1)
+        else:
+            label.append(0)
+    df['label'] = label
+    df.to_csv(join(BASE_DIR, path), index=False)
+
+
+if __name__ == '__main__':
+    BASE_DIR = dirname(dirname(__file__))
+    data_file = 'data/raw_data/u.data'
+    item_file = 'data/raw_data/u.item'
+    user_file = 'data/raw_data/u.user'
+    training_file = 'data/raw_data/ua.base'
+    test_file = 'data/raw_data/ua.test'
+    csv_training_file = 'util/tmp/ua.base.csv'
+    csv_test_file = 'util/tmp/ua.test.csv'
+    csv_data_file = 'util/tmp/u.data.csv'
+    csv_item_file = 'util/tmp/u.item.csv'
+    csv_user_file = 'util/tmp/u.user.csv'
+
+    generate_training_test_data(csv_training_file)
+    generate_training_test_data(csv_test_file)
