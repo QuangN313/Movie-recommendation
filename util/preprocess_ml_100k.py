@@ -20,15 +20,22 @@ def convert_txt_to_csv(txt_path, csv_path, headers, delimiter):
 
 if __name__ == '__main__':
     BASE_DIR = dirname(dirname(__file__))
-    data_file = 'data/raw_ml_100k/u.data'
-    item_file = 'data/raw_ml_100k/u.item'
+    data_file = 'data/raw_data/u.data'
+    item_file = 'data/raw_data/u.item'
+    user_file = 'data/raw_data/u.user'
     csv_data_file = 'util/tmp/u.data.csv'
     csv_item_file = 'util/tmp/u.item.csv'
+    csv_user_file = 'util/tmp/u.user.csv'
+
     if exists((join(BASE_DIR, csv_data_file))):
         remove((join(BASE_DIR, csv_data_file)))
     if exists(join(BASE_DIR, csv_item_file)):
         remove((join(BASE_DIR, csv_item_file)))
+    if exists(join(BASE_DIR, csv_user_file)):
+        remove((join(BASE_DIR, csv_user_file)))
+
     convert_txt_to_csv(data_file, csv_data_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
     convert_txt_to_csv(item_file, csv_item_file,
                        headers=['movie_id', 'movie_title', 'release_time', 'release_video_date', 'IMDB_url'] + genre,
                        delimiter='|')
+    convert_txt_to_csv(user_file, csv_user_file, ['user_id', 'age', 'gender', 'occupation', 'zip_code'], '|')
