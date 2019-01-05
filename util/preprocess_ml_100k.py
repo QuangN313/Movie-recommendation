@@ -29,10 +29,10 @@ def get_csv_file():
 
     convert_txt_to_csv(training_file, csv_training_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
     convert_txt_to_csv(test_file, csv_test_file, ['user_id', 'item_id', 'rating', 'timestamp'], '\t')
-    convert_txt_to_csv(item_file, csv_item_file,
-                       headers=['movie_id', 'movie_title', 'release_time', 'release_video_date', 'IMDB_url'] + genre,
-                       delimiter='|')
-    convert_txt_to_csv(user_file, csv_user_file, ['user_id', 'age', 'gender', 'occupation', 'zip_code'], '|')
+    # convert_txt_to_csv(item_file, csv_item_file,
+    #                    headers=['movie_id', 'movie_title', 'release_time', 'release_video_date', 'IMDB_url'] + genre,
+    #                    delimiter='|')
+    # convert_txt_to_csv(user_file, csv_user_file, ['user_id', 'age', 'gender', 'occupation', 'zip_code'], '|')
 
 
 def generate_training_test_data(path):
@@ -59,6 +59,7 @@ if __name__ == '__main__':
     csv_data_file = 'util/tmp/u.data.csv'
     csv_item_file = 'util/tmp/u.item.csv'
     csv_user_file = 'util/tmp/u.user.csv'
-
-    generate_training_test_data(csv_training_file)
-    generate_training_test_data(csv_test_file)
+    get_csv_file()
+    # generate_training_test_data(csv_training_file)
+    # generate_training_test_data(csv_test_file)
+    # convert_txt_to_csv(training_file, csv_training_file, )
