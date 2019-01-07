@@ -1,5 +1,10 @@
 # Kết quả recommend trên tập ua.test sử dụng Simple Recommender
 
+* Thực hiện đánh giá trên tập gồm 9430 đánh giá
+
+* Rating >= 3: user like item (Label 1)
+* Rating < 3: user dislike    (Label 0)
+
 ```
                 precision    recall  f1-score   support
 
@@ -14,5 +19,4 @@ Matrix:
 [[1359  178]
  [5487 2406]] 
  
- 9430
 ```
