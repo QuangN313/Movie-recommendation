@@ -15,7 +15,7 @@ def calculate_WR():
     v is the number of votes for the movie;
     m is the minimum votes required to be listed in the chart;
     R is the average rating of the movie; And
-    C is the mean vote across the whole report
+    C is the mean rating across the whole report
 
     """
     C = df['rating_avg'].mean()
