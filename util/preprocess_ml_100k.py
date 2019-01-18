@@ -38,12 +38,12 @@ def get_csv_file():
 def generate_training_test_data(path):
     df = pd.read_csv(join(BASE_DIR, path))
     label = []
-    for rating in df['rating']:
+    for rating in df['prediction_rating']:
         if rating >=3:
             label.append(1)
         else:
             label.append(0)
-    df['label'] = label
+    df['prediction_label'] = label
     df.to_csv(join(BASE_DIR, path), index=False)
 
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     csv_data_file = 'util/tmp/u.data.csv'
     csv_item_file = 'util/tmp/u.item.csv'
     csv_user_file = 'util/tmp/u.user.csv'
-    get_csv_file()
+    # get_csv_file()
     # generate_training_test_data(csv_training_file)
-    # generate_training_test_data(csv_test_file)
+    generate_training_test_data('egs/content-base/tmp/output.csv')
     # convert_txt_to_csv(training_file, csv_training_file, )

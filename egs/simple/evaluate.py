@@ -2,6 +2,7 @@ import pandas as pd
 from os.path import join, dirname
 from sklearn.metrics import classification_report, confusion_matrix, f1_score
 
+
 def predict():
     label = [0 for x in range(test_df.shape[0])]
     for num_item, item in enumerate(test_df['item_id'].values.tolist()):
